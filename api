@@ -100,6 +100,18 @@ function right()
 	turtle.turnRight()
 end
 
+function dig()
+	return turtle.dig()
+end
+
+function digDown()
+	return turtle.digDown()
+end
+
+function digUp()
+	return turtle.digUp()
+end
+
 function inspect()
 	return turtle.inspect()
 end
