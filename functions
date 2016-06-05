@@ -1,0 +1,23 @@
+function gotoNewPlace()
+  forward(5, true)
+end
+
+function selectItem(item)
+  for i = 1, 16, 1 do
+    d = getItemDetail(i)
+    if not (d == nill) then
+      if (d.name == item) then
+        select(i)
+        return true
+      end
+    end
+  end
+  return false
+end
+
+function placeTree()
+  selectItem("minecraft:sapling")
+  return placeDown()
+end
+
+selectItem("minecraft:sapling")
