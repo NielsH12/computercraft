@@ -8,6 +8,10 @@ function refuel()
 	return false
 end
 
+function getItemCount(s)
+	return turtle.getItemCount(s)
+end
+
 function forward(l, f, r)
 	if (l == nill) then
 		l = 1
@@ -192,5 +196,9 @@ function select(s)
 end
 
 function transferTo(s, c)
-	return turtle.transferTo(s, c)
+	if (c == nill) then
+		return turtle.transferTo(s)
+	else
+		return turtle.transferTo(s, c)
+	end
 end
