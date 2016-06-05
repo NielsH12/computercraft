@@ -112,6 +112,18 @@ function inspectUp()
 	return turtle.inspectUp()
 end
 
+function detect()
+	return turtle.detect()
+end
+
+function detectDown()
+	return turtle.detectDown()
+end
+
+function detectUp()
+	return turtle.detectUp()
+end
+
 function place(s, f)
 	if not (s == nill) then
 		turtle.select(s)

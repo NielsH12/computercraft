@@ -29,7 +29,7 @@ function selectItem(item)
 	return false
 end
 
-placeDirt()
+function placeDirt()
 	selectItem("minecraft:dirt")
 	down(1, true, true)
 	placeDown(nill, true)
@@ -65,7 +65,7 @@ while (true) do
 	placeTree()
 	chopTree()
 	craftFloor()
---	buildFloor()
---	chopLeaves()
---	suckLeaves()
+	buildFloor()
+	chopLeaves()
+	suckLeaves()
 end
