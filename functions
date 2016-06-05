@@ -1,23 +1,71 @@
-function gotoNewPlace()
-  forward(5, true)
+function emptyCraftingSpace()
+	storageSpace = {4,8,12,13,14,15,16}
+	for i = 1, 3, 1 do
+		for j = 1, 3, 1 do
+			if getItemCount(i * 4 + j) then
+				select(i * 4 + j)
+				for k = 1, #storageSpace do
+					if (transferTo(storageSpace[k])) then
+						break
+					end
+				end
+				return false
+			end
+		end
+	end
+	return true
 end
 
 function selectItem(item)
-  for i = 1, 16, 1 do
-    d = getItemDetail(i)
-    if not (d == nill) then
-      if (d.name == item) then
-        select(i)
-        return true
-      end
-    end
-  end
-  return false
+	for i = 1, 16, 1 do
+		d = getItemDetail(i)
+		if not (d == nill) then
+			if (d.name == item) then
+				select(i)
+				return true
+			end
+		end
+	end
+	return false
+end
+
+placeDirt()
+	selectItem("minecraft:dirt")
+	down(1, true, true)
+	placeDown(nill, true)
+	up(1, true, true)
+end
+
+function gotoNewPlace()
+	forward(5, true, true)
 end
 
 function placeTree()
-  selectItem("minecraft:sapling")
-  return placeDown()
+	selectItem("minecraft:sapling")
+	placeDown(nill, true)
+	up(5, true, true)
+	while not (detectDown()) do
+		os.sleep(1)
+	end
 end
 
-selectItem("minecraft:sapling")
+function chopTree()
+	down(5, true, true)
+	digDown()
+end
+
+function craftFloor()
+	emptyCraftingSpace()
+	selectItem("minecraft:wood")
+end
+
+gotoNewPlace()
+placeDirt()
+while (true) do
+	placeTree()
+	chopTree()
+	craftFloor()
+--	buildFloor()
+--	chopLeaves()
+--	suckLeaves()
+end
