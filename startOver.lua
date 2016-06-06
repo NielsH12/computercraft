@@ -14,6 +14,11 @@ while (true) do
 			expandPlatform(platformSize)
 			platformSize = platformSize + 1
 		end
+	end
 	chopLeaves()
-	suckLeaves(platformSize)
+	suckLeaves(platformSize - 1)
+	if (getNumberOfItems("minecraft:log") * 4 + getNumberOfItems("minecraft:planks") > 9) then
+		createBarrel()
+		placeBarrel()
+	end
 end

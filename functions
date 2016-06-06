@@ -90,7 +90,7 @@ function craftFloor()
 	if (selectItem("minecraft:sapling")) then
 		dropDown()
 	end
-	if (selectItem("minecraft:log")) then
+	if (selectItem("minecraft:planks")) then
 		dropDown()
 	end
 	craft(2)
@@ -197,4 +197,67 @@ function suckLeaves(size)
 		left()
 		left()
 	end
+end
+
+function createBarrel()
+	local selectedSlot = getSelectedSlot()
+	local planks = getNumberOfItem("minecraft:planks")
+	selectItem("minecraft:chest")
+	placeUp(true)
+	if (planks < 9) then
+		for i = 1, 16, 1 do
+			if not (getSlotItem(i) == "minecraft:log") then
+				dropUp()
+			end
+		end
+		craft()
+	end
+	planks = getNumberOfItem("minecraft:planks")
+	dropUp(planks - 3)
+	select(1)
+	selectItem("minecraft:planks")
+	moveItemToSlot("minecraft:planks", 1)
+	moveItemToSlot("minecraft:planks", 2, 1)
+	moveItemToSlot("minecraft:planks", 2, 1)
+	craft()
+
+	while (getNumberOfItem("minecraft:planks") < 6) do
+		suckUp()
+	end
+
+	for i = 1, 16, 1 do
+		turtle.select(i)
+		if not (getSlotItem(i) == "minecraft:planks" or getSlotItem(i) == "minecraft:wooden_slab") then
+			dropUp()
+		end
+	end
+
+
+
+	while (suckUp()) do
+
+	end
+
+	digUp()
+
+	select(selectedSlot)
+end
+
+function placeBarrel()
+	forward(1, true, true)
+	down(2, true, true)
+	if (selectItem("exnihilo:barrel")) then
+		return placeDown(true)
+	end
+	return false
+end
+
+function getSlotItem(s)
+	local selectedSlot = getSelectedSlot()
+	d = getItemDetail()
+	select(selectedSlot)
+	if (d == nill) then
+		return ""
+	end
+	return d.name
 end

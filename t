@@ -8,6 +8,10 @@ function refuel()
 	return false
 end
 
+functions getSlectedSlot()
+	return turtle.getSelectedSlot()
+end
+
 function getItemCount(s)
 	return turtle.getItemCount(s)
 end
