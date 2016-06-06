@@ -129,15 +129,24 @@ function dropUp(i)
 end
 
 function suck(i)
-	turtle.suck(i)
+	if (i == nill) then
+		return turtle.suck()
+	end
+	return turtle.suck(i)
 end
 
 function suckDown(i)
-	turtle.suckDown(i)
+	if (i == nill) then
+		return turtle.suckDown()
+	end
+	return turtle.suckDown(i)
 end
 
 function suckUp(i)
-	turtle.suckUp(i)
+	if (i == nill) then
+		return turtle.suckUp()
+	end
+	return turtle.suckUp(i)
 end
 
 function inspect()
@@ -227,6 +236,9 @@ function transferTo(s, c)
 	end
 end
 
-function craft()
-	return turtle.craft()
+function craft(i)
+	if (i == nill) then
+		return turtle.craft()
+	end
+	return turtle.craft(i)
 end

@@ -27,7 +27,7 @@ function selectItem(item)
 				return true
 			end
 		end
-	end
+	endchopTree
 	return false
 end
 
@@ -122,16 +122,16 @@ function chopLeaves()
 	left()
 	for i = 1, 2, 1 do
 		for j = 1, 2, 1 do
-			digRow(4)
+			chopRow(4)
 			left()
-			digRow(1)
+			chopRow(1)
 			left()
-			digRow(4)
+			chopRow(4)
 			right()
-			digRow(1)
+			chopRow(1)
 			right()
 		end
-		digRow(4)
+		chopRow(4)
 		if (i == 1) then
 			down(1, true, true)
 		end
