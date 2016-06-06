@@ -111,7 +111,12 @@ function craftItem(item, count, force)
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
 			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
-			missingItem = true
+			if (craftItem(itemInRecipe[i], (itemCountInRecipe[i] - itemCount[i]), true)) then
+				print("Fixed!")
+			else
+				print("Cant fix error!")
+				missingItem = true
+			end
 		end
 	end
 	if (missingItem) then
@@ -168,11 +173,13 @@ function craftItem(item, count, force)
 	for i = 1, 3, 1 do
 		for j = 1, 3, 1 do
 			if (recipe[item][(i - 1) * 3 + j] == nill) then
-				for k = 1, 16, 1 do
-					turtle.select((i - 1) * 4 + j)
-					turtle.transferTo(17 - k)
-					if (turtle.getItemCount((i - 1) * 4 + j) == 0) then
-						break
+				if (turtle.getItemCount((i - 1) * 4 + j) > 0) then
+					for k = 1, 16, 1 do
+						turtle.select((i - 1) * 4 + j)
+						turtle.transferTo(17 - k)
+						if (turtle.getItemCount((i - 1) * 4 + j) == 0) then
+							break
+						end
 					end
 				end
 			else
