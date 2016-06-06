@@ -163,12 +163,11 @@ function craftItem(item, count, force)
 	end
 
 	-- Ready crafting space
-	print("Ready crafting space!")
-	for i = 1, 7, 1 do
-		for j = 1, 9, 1 do
-		 	if (turtle.getItemCount(i) > 0) then
-				turtle.select(i)
-				turtle.transferTo(j)
+	for i = 1, #itemInRecipe, 1 do
+		for j = 1, 16, 1 do
+			if (getItemCount(itemInRecipe[i]) > itemCountInRecipe[i]) then
+				selectItem(itemInRecipe[i])
+				turtle.dropUp(getItemCount(itemInRecipe[i]) - itemCountInRecipe[i])
 			else
 				break
 			end
