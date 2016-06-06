@@ -27,7 +27,7 @@ function selectItem(item)
 				return true
 			end
 		end
-	endchopTree
+	end
 	return false
 end
 
@@ -133,7 +133,7 @@ function chopLeaves()
 		end
 		chopRow(4)
 		if (i == 1) then
-			down(1, true, true)
+			down(3, true, true)
 		end
 		right()
 		right()
