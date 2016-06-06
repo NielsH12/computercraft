@@ -78,7 +78,7 @@ function craftFloor()
 	if (selectItem("minecraft:sapling")) then
 		dropDown()
 	end
-	craft()
+	craft(2)
 	suckDown()
 end
 
