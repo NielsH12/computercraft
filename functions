@@ -67,6 +67,7 @@ end
 function craftFloor()
 	emptyCraftingSpace()
 	selectItem("minecraft:wood")
+	craft()
 end
 
 gotoNewPlace()

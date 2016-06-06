@@ -202,3 +202,7 @@ function transferTo(s, c)
 		return turtle.transferTo(s, c)
 	end
 end
+
+function craft()
+	return turtle.craft()
+end
