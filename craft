@@ -7,14 +7,6 @@ getItem(slot)
 
 ]]--
 
-function min(val1, val2)
-	if (val1 < val2) then
-		return val1
-	else
-		return val2
-	end
-end
-
 function getItemCount(item)
 	local count = 0
 	for i = 1, 16, 1 do
@@ -54,6 +46,11 @@ recipe = {}
 recipe["minecraft:planks"] = {"minecraft:log"}
 recipe["minecraft:wooden_slab"] = {"minecraft:planks", "minecraft:planks", "minecraft:planks"}
 recipe["exnihilo:barrel"] = {"minecraft:planks", nill, "minecraft:planks", "minecraft:planks", nill, "minecraft:planks", "minecraft:planks", "minecraft:wooden_slab", "minecraft:planks"}
+
+resultCount = {}
+resultCount["minecraft:planks"] = 4
+resultCount["minecraft:wooden_slab"] = 3
+resultCount["exnihilo:barrel"] = 1
 
 function craftItem(item, count, force)
 
@@ -111,7 +108,7 @@ function craftItem(item, count, force)
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
 			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
-			if (craftItem(itemInRecipe[i], (itemCountInRecipe[i] - itemCount[i]), true)) then
+			if (craftItem(itemInRecipe[i], math.ceil((itemCountInRecipe[i] - itemCount[i]) / resultCount[itemInRecipe[i]]), true)) then
 				print("Fixed!")
 			else
 				print("Cant fix error!")
@@ -162,7 +159,7 @@ function craftItem(item, count, force)
 		for j = 1, 16, 1 do
 			if (getItemCount(itemInRecipe[i]) > itemCountInRecipe[i]) then
 				selectItem(itemInRecipe[i])
-				turtle.dropUp(min(getItemCount(itemInRecipe[i]) - itemCountInRecipe[i], 64))
+				turtle.dropUp(math.min(getItemCount(itemInRecipe[i]) - itemCountInRecipe[i], 64))
 			else
 				break
 			end
