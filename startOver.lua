@@ -1,10 +1,13 @@
 gotoNewPlace()
 placeDirt()
+placeTree()
+chopTree()
+craftFloor()
+buildFloor()
+
 while (true) do
-	placeTree()
-	chopTree()
-	craftFloor()
-	buildFloor()
 	chopLeaves()
 	suckLeaves()
+	placeTree()
+	chopTree()
 end

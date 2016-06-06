@@ -1,21 +1,21 @@
 shell.run("t")
 
-function emptyCraftingSpace()
-	storageSpace = {4,8,12,13,14,15,16}
-	for i = 1, 3, 1 do
-		for j = 1, 3, 1 do
-			if getItemCount(i * 4 + j) then
-				select(i * 4 + j)
-				for k = 1, #storageSpace do
-					if (transferTo(storageSpace[k])) then
-						break
-					end
-				end
-				return false
-			end
+function freeSpaceInInventory()
+	for i = 1, 16, 1 do
+		if (getItemCount(i) == 0) then
+			return true
 		end
 	end
-	return true
+	return false
+end
+
+function emptyChest()
+	while (suck()) do end
+	if (freeSpaceInInventory()) then
+		return true
+	else
+		return false
+	end
 end
 
 function selectItem(item)
@@ -45,6 +45,9 @@ end
 function placeTree()
 	selectItem("minecraft:sapling")
 	placeDown(nill, true)
+end
+
+function chopTree()
 	up(5, true, true)
 	while not (detectDown()) do
 		if (down()) then
@@ -57,15 +60,98 @@ function placeTree()
 		end
 		os.sleep(10)
 	end
-end
-
-function chopTree()
 	down(5, true, true)
 	digDown()
 end
 
 function craftFloor()
-	emptyCraftingSpace()
-	selectItem("minecraft:wood")
+	if (selectItem("minecraft:sapling")) then
+		dropDown()
+	end
 	craft()
+	suckDown()
+end
+
+function buildFloor()
+	forward(1, true, true)
+	down(1, true, true)
+	left()
+	selectItem("minecraft:planks")
+	for i = 1, 4, 1 do
+		placeDown()
+		forward(1, true, true)
+		left()
+		placeDown()
+		forward(1, true, true)
+	end
+	left()
+	up(1, true, true)
+	forward(1, true, true)
+	left()
+	left()
+end
+
+function chopRow(l)
+	if (l == nill) then
+		l = 1
+	end
+	for i = 1, l, 1 do
+		digUp()
+		digDown()
+		forward(1, true, true)
+	end
+end
+
+function chopLeaves()
+	up(3, true, true)
+	forward(2, true, true)
+	left()
+	forward(2, true, true)
+	left()
+	for i = 1, 2, 1 do
+		for j = 1, 2, 1 do
+			digRow(4)
+			left()
+			digRow(1)
+			left()
+			digRow(4)
+			right()
+			digRow(1)
+			right()
+		end
+		digRow(4)
+		if (i == 1) then
+			down(1, true, true)
+		end
+		right()
+		right()
+	end
+	right()
+	forward(2, true, true)
+	right()
+	forward(2, true, true)
+	right()
+	right()
+end
+
+function suckLeaves()
+	forward(2, true, true)
+	left()
+	forward(2, true, true)
+	left()
+	for j = 1, 2, 1 do
+		suckDown()
+		left()
+		suckDown()
+		left()
+		suckDown()
+		right()
+		suckDown()
+		right()
+	end
+	suckDown()
+	right()
+	forward(2, true, true)
+	right()
+	forward(2, true, true)
 end
