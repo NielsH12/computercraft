@@ -1,4 +1,6 @@
 --[[
+3Rd6ttwp git
+RYWcJNZQ clone
 
 	API with implementation of local movement
 
@@ -26,7 +28,7 @@ function test()
 end
 
 function setRefuelMode(mode)
-	if type(mode) ~= boolean then print("setRefuelMode needs boolean argument") end
+	if type(mode) ~= "boolean" then print("setRefuelMode needs boolean argument") end
 	refuel = mode
 end
 
@@ -127,10 +129,37 @@ function refuel()
 		turtle.select(i)
 		if turtle.refuel() then fueled = true end
 	end
-	turtle.select(slot)
-	return fueled
+	turtle.select(slot
+	if fueled then
+		return fueled
+	else
+		nofuel()
+	end
 end
 
-local function nofuel() -- Appropriate action when out of fuel
+local function nofuel() -- Appropriate action when out of fuel, status maybe?
+	print("Out of fuel")
+	sleep(60)
+end
 
+function askCoordinates()
+	print("Enter x coordinate: ")
+	xCoord = tonumber(read())
+	print("Enter y coordinate: ")
+	yCoord = tonumber(read())
+	print("Enter z coordinate: ")
+	zCoord = tonumber(read())
+	print("Enter direction number (S,W,N,E): ")
+	direction = tonumber(read())
+end
+
+function setCoordinates( x, y, z, d)
+	xCoord = x
+	yCoord = y
+	zCoord = z
+	direction = d
+end
+
+function getCoordinates()
+	return {xCoord, yCoord, zCoord, direction}
 end
