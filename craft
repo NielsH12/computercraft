@@ -22,7 +22,7 @@ end
 
 function selectItem(item)
 	for i = 1, 16, 1 do
-		d = getItemDetail(i)
+		d = turtle.getItemDetail(i)
 		if not (d == nill) then
 			if (d.name == item) then
 				select(i)
@@ -38,7 +38,7 @@ function getItem(slot)
 	if (d == nill) then
 		return ""
 	else
-		return s.name
+		return d.name
 	end
 end
 
@@ -128,7 +128,7 @@ function craftItem(item, count, force)
 		return false
 	end
 
-	-- Empty for unused item
+	-- Place chest
 	if not (selectItem("minecraft:chest")) then
 		print("No chest found in inventory!")
 		return false
@@ -143,10 +143,13 @@ function craftItem(item, count, force)
 			return false
 		end
 	end
+
+	-- Empty for unused item
 	for i = 1, 16, 1 do
 		local foundInRecipe = false
 		for j = 1, #itemInRecipe, 1 do
-			if (getItem(i) == itemInRecipe[j]) then
+			if (getItem(i) == itemInRecipe[j] or getItem(i) == "") then
+				print(getItem(i))
 				foundInRecipe = true
 				break
 			end
