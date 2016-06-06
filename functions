@@ -1,4 +1,4 @@
-shell.run("api")
+shell.run("t")
 
 function emptyCraftingSpace()
 	storageSpace = {4,8,12,13,14,15,16}
