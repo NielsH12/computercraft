@@ -69,14 +69,3 @@ function craftFloor()
 	selectItem("minecraft:wood")
 	craft()
 end
-
-gotoNewPlace()
-placeDirt()
-while (true) do
-	placeTree()
-	chopTree()
-	craftFloor()
-	buildFloor()
-	chopLeaves()
-	suckLeaves()
-end
