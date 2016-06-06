@@ -22,7 +22,7 @@ local zDiff = {1, 0, -1, 0}
 -- FUNCTIONS --
 
 function test()
-	print("n API")
+	print("n API by Niels Hvid")
 end
 
 function setRefuelMode(mode)
@@ -44,6 +44,79 @@ function forward(length, mode)
 		end
 		xCoord = xCoord + xDiff[direction]
 		zCoord = zCoord + zDiff[direction]
+	end
+end
+
+function back(length, mode)
+	if length == nill then length = 1 end
+	if mode == nill then mode = 'w' end
+	
+	if turtle.getFuelLevel < length then
+		if refuel then refuel() else nofuel() end
+	end
+	
+	for i = 1,length,1 do
+		while not turtle.back() do
+			if mode == 'f' then 
+				left(2)
+				turtle.dig()
+				right(2)
+			end
+		end
+		xCoord = xCoord - xDiff[direction]
+		zCoord = zCoord - zDiff[direction]
+	end
+end
+
+function up(length, mode)
+	if length == nill then length = 1 end
+	if mode == nill then mode = 'w' end
+	
+	if turtle.getFuelLevel < length then
+		if refuel then refuel() else nofuel() end
+	end
+	
+	for i = 1,length,1 do
+		while not turtle.up() do
+			if mode == 'f' then turtle.digUp() end
+
+		end
+		yCoord = yCoord + 1
+	end
+end
+
+function down(length, mode)
+	if length == nill then length = 1 end
+	if mode == nill then mode = 'w' end
+	
+	if turtle.getFuelLevel < length then
+		if refuel then refuel() else nofuel() end
+	end
+	
+	for i = 1,length,1 do
+		while not turtle.down() do
+			if mode == 'f' then turtle.digDown() end
+
+		end
+		yCoord = yCoord - 1
+	end
+end
+
+function left(length)
+	if length == nill then length = 1 end
+	
+	for i = 1,length,1 do
+		turtle.turnLeft()
+		direction = direction % 4 - 1
+	end
+end
+
+function right(length)
+	if length == nill then length = 1 end
+	
+	for i = 1,length,1 do
+		turtle.turnRight()
+		direction = direction % 4 + 1
 	end
 end
 
