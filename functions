@@ -32,6 +32,7 @@ function selectItem(item)
 end
 
 function placeDirt()
+	print("placeDirt")
 	selectItem("minecraft:dirt")
 	down(1, true, true)
 	placeDown(nill, true)
@@ -39,15 +40,18 @@ function placeDirt()
 end
 
 function gotoNewPlace()
+	print("gotoNewPlace")
 	forward(5, true, true)
 end
 
 function placeTree()
+	print("placeTree")
 	selectItem("minecraft:sapling")
 	placeDown(nill, true)
 end
 
 function chopTree()
+	print("chopTree")
 	up(5, true, true)
 	while not (detectDown()) do
 		if (down()) then
@@ -65,6 +69,7 @@ function chopTree()
 end
 
 function craftFloor()
+	print("craftFloor")
 	if (selectItem("minecraft:sapling")) then
 		dropDown()
 	end
@@ -73,6 +78,7 @@ function craftFloor()
 end
 
 function buildFloor()
+	print("buildFloor")
 	forward(1, true, true)
 	down(1, true, true)
 	left()
@@ -103,6 +109,7 @@ function chopRow(l)
 end
 
 function chopLeaves()
+	print("chopLeaves")
 	up(3, true, true)
 	forward(2, true, true)
 	left()
@@ -135,6 +142,7 @@ function chopLeaves()
 end
 
 function suckLeaves()
+	print("suckLeaves")
 	forward(2, true, true)
 	left()
 	forward(2, true, true)
