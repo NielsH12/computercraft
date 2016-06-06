@@ -134,9 +134,9 @@ function chopLeaves()
 		chopRow(4)
 		if (i == 1) then
 			down(3, true, true)
+			right()
+			right()
 		end
-		right()
-		right()
 	end
 	right()
 	forward(2, true, true)
@@ -146,25 +146,35 @@ function chopLeaves()
 	right()
 end
 
+function suckRowDown(l)
+	if (l == nill) then
+		l = 1
+	end
+	for i = 1, l, 1 do
+		suckDown()
+		forward(1, true, true)
+	end
+end
+
 function suckLeaves()
 	print("suckLeaves")
-	forward(2, true, true)
+	forward(1, true, true)
 	left()
-	forward(2, true, true)
+	forward(1, true, true)
 	left()
-	for j = 1, 2, 1 do
-		suckDown()
-		left()
-		suckDown()
-		left()
-		suckDown()
-		right()
-		suckDown()
-		right()
-	end
+	suckRowDown(2)
+	left()
+	suckDown(1)
+	left()
+	suckDown(2)
+	right()
+	suckDown(1)
+	right()
+	suckDown(2)
+	left()
 	suckDown()
-	right()
-	forward(2, true, true)
-	right()
-	forward(2, true, true)
+	left()
+	forward(1, true, true)
+	left()
+	left()
 end
