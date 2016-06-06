@@ -163,6 +163,7 @@ function craftItem(item, count, force)
 	end
 
 	-- Ready crafting space
+	print("Ready crafting space!")
 	for i = 1, 7, 1 do
 		for j = 1, 9, 1 do
 		 	if (turtle.getItemCount(i) > 0) then
@@ -175,12 +176,22 @@ function craftItem(item, count, force)
 	end
 
 	-- Place items
+	print("Place items!")
 	for i = 1, 3, 1 do
 		for j = 1, 3, 1 do
-			if not (recipe[item][(i - 1) * 3 + j] == nill) then
+			if (recipe[item][(i - 1) * 3 + j] == nill) then
+				for k = 1, 16, 1 do
+					turtle.select((i - 1) * 4 + j)
+					turtle.transferTo(17 - k)
+					if (turtle.getItemCount((i - 1) * 4 + j) == 0) then
+						break
+					end
+				end
+			else
 				for k = (i - 1) * 4 + j + 1, 16, 1 do
+					print(k)
 					if (turtle.getItemCount((i - 1) * 4 + j) < count) then
-						if (getItem(k) == getItem((i - 1) * 4 + j)) then
+						if (getItem(k) == recipe[item][(i - 1) * 3 + j]) then
 							turtle.select(k)
 							turtle.transferTo((i - 1) * 4 + j, count - turtle.getItemCount((i - 1) * 4 + j))
 						end
@@ -189,11 +200,12 @@ function craftItem(item, count, force)
 					end
 				end
 			end
+			print("Slot " .. ((i - 1) * 4 + j) .. ": Ready!")
 		end
 	end
 
 	-- Craft
-	turtle.craft()
+	print(turtle.craft())
 
 	-- Fill with unused items
 	turtle.select(1)
