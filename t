@@ -117,14 +117,23 @@ function digUp()
 end
 
 function drop(i)
+	if (i == nill) then
+		return turtle.drop()
+	end
 	turtle.drop(i)
 end
 
 function dropDown(i)
+	if (i == nill) then
+		return turtle.dropDown()
+	end
 	turtle.dropDown(i)
 end
 
 function dropUp(i)
+	if (i == nill) then
+		return turtle.dropUp()
+	end
 	turtle.dropUp(i)
 end
 
