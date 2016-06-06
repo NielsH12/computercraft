@@ -116,6 +116,30 @@ function digUp()
 	return turtle.digUp()
 end
 
+function drop(i)
+	turtle.drop(i)
+end
+
+function dropDown(i)
+	turtle.dropDown(i)
+end
+
+function dropUp(i)
+	turtle.dropUp(i)
+end
+
+function suck(i)
+	turtle.suck(i)
+end
+
+function suckDown(i)
+	turtle.suckDown(i)
+end
+
+function suckUp(i)
+	turtle.suckUp(i)
+end
+
 function inspect()
 	return turtle.inspect()
 end

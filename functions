@@ -31,6 +31,11 @@ function selectItem(item)
 	return false
 end
 
+function gotoNewPlace()
+	print("gotoNewPlace")
+	forward(5, true, true)
+end
+
 function placeDirt()
 	print("placeDirt")
 	selectItem("minecraft:dirt")
@@ -39,15 +44,13 @@ function placeDirt()
 	up(1, true, true)
 end
 
-function gotoNewPlace()
-	print("gotoNewPlace")
-	forward(5, true, true)
-end
-
 function placeTree()
 	print("placeTree")
-	selectItem("minecraft:sapling")
+	if  not (selectItem("minecraft:sapling")) then
+		return false
+	end
 	placeDown(nill, true)
+	return true
 end
 
 function chopTree()
@@ -56,7 +59,8 @@ function chopTree()
 	while not (detectDown()) do
 		if (down()) then
 			if detectDown() then
-				up(1, true, true)
+				down(4, true, true)
+				digDown()
 				return true
 			else
 				up()
@@ -66,6 +70,7 @@ function chopTree()
 	end
 	down(5, true, true)
 	digDown()
+	return true
 end
 
 function craftFloor()
