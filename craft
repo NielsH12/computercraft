@@ -1,0 +1,41 @@
+recipe = {}
+recipe["minecraft:planks"] = {"minecraft:log"}
+recipe["minecraft:wooden_slab"] = {"minecraft:planks", "minecraft:planks", "minecraft:planks"}
+recipe[""] = {"minecraft:planks", nill, "minecraft:planks", "minecraft:planks", nill, "minecraft:planks", "minecraft:planks", "minecraft:wooden_slab", "minecraft:planks"}
+
+function craftItem(item)
+
+	-- Check for recipe
+	if (recipe[item] == nill) then
+		print("Unknown recipe!")
+		return false
+	end
+
+	-- Create a list of used items
+	usedItems = {}
+	for i = 1, i < 9, 1 do
+		if not (recipe[item][i] == nill) then
+			for j = 1, #usedItems, 1 do
+				if (usedItems[j] == recipe[item][i]) then
+					break
+				end
+			end
+			table.insert(usedItems, recipe[item][i])
+		end
+	end
+
+
+	-- Print list of used items
+	print("List of used items:")
+	for i = 1, #usedItems, 1 do
+		print(usedItems[i])
+	end
+	print("")
+
+
+	-- Check for materials
+
+
+	-- Empty for unused item
+	
+end

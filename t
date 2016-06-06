@@ -8,7 +8,7 @@ function refuel()
 	return false
 end
 
-functions getSlectedSlot()
+function getSelectedSlot()
 	return turtle.getSelectedSlot()
 end
 
