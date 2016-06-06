@@ -5,17 +5,40 @@ getItemCount(item)
 
 ]]--
 
+function getItemCount(item)
+	local count = 0
+	for i = 1, 16, 1 do
+		d = turtle.getItemDetail(i)
+		if (d.name == item) then
+			count = count + d.count
+		end
+	end
+	return count
+end
+
 recipe = {}
 recipe["minecraft:planks"] = {"minecraft:log"}
 recipe["minecraft:wooden_slab"] = {"minecraft:planks", "minecraft:planks", "minecraft:planks"}
-recipe[""] = {"minecraft:planks", nill, "minecraft:planks", "minecraft:planks", nill, "minecraft:planks", "minecraft:planks", "minecraft:wooden_slab", "minecraft:planks"}
+recipe["exnihilo:barrel"] = {"minecraft:planks", nill, "minecraft:planks", "minecraft:planks", nill, "minecraft:planks", "minecraft:planks", "minecraft:wooden_slab", "minecraft:planks"}
 
-function craftItem(item, count)
+function craftItem(item, count, force)
 
 	-- Check for recipe
 	if (recipe[item] == nill) then
 		print("Unknown recipe!")
 		return false
+	end
+
+	-- Check for valid number
+	if (count == nill) then
+		count = 1
+	elseif (count > 64) then
+		count = 64
+	end
+
+	-- Check force state
+	if (force == nill) then
+		force = false
 	end
 
 	-- Create a list of items in recipe
@@ -40,17 +63,17 @@ function craftItem(item, count)
 	-- Create list of item counts in recipe
 	local itemCountInRecipe = {}
 	for i = 1, #itemInRecipe, 1 do
-		local count = 0
+		local itemCount = 0
 		for j = 1, 9, 1 do
 			if (itemInRecipe[i] == recipe[item][j]) then
-				count = count + 1
+				itemCount = itemCount + 1
 			end
 		end
-		itemCountInRecipe[i] = count
+		itemCountInRecipe[i] = itemCount * count
 	end
 
 	-- Print list of item counts in recipe
-	print("List of materials:")
+	print("List of items in recipe:")
 	for i = 1, #itemInRecipe, 1 do
 		print(itemInRecipe[i] .. ": " .. itemCountInRecipe[i])
 	end
@@ -71,7 +94,7 @@ function craftItem(item, count)
 	local missingItem = false
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
-			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. itemInRecipe[i])
+			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
 			missingItem = true
 		end
 	end
@@ -80,5 +103,46 @@ function craftItem(item, count)
 	end
 
 	-- Empty for unused item
+	if not (selectItem("minecraft:chest")) then
+		print("No chest found in inventory!")
+		return false
+	end
+	if (force) then
+		while not turtle.placeUp() do
+			turtle.digUp()
+		end
+	else
+		if not (turtle.placeUp()) then
+			print("Cant place chest!")
+			return false
+		end
+	end
+	for i = 1, 16, 1 do
+		local foundInRecipe = false
+		for j = 1, #itemInRecipe, 1 do
+			if (getItem(i) == itemInRecipe[j]) then
+				foundInRecipe = true
+				break
+			end
+		end
+		if not (foundInRecipe) then
+			turtle.select(i)
+			if not (turtle.dropUp()) then
+				print("Not enough space in chest!")
+				return false
+			end
+		end
+	end
 
+	-- Put item together
+
+	-- Place items
+
+	-- Craft
+
+	-- Fill with unused items
+	turtle.select(1)
+	while (turtle.suckUp()) do end
+	turtle.digUp()
+	return true
 end
