@@ -1,9 +1,16 @@
+--[[
+Need folowing functions
+
+getItemCount(item)
+
+]]--
+
 recipe = {}
 recipe["minecraft:planks"] = {"minecraft:log"}
 recipe["minecraft:wooden_slab"] = {"minecraft:planks", "minecraft:planks", "minecraft:planks"}
 recipe[""] = {"minecraft:planks", nill, "minecraft:planks", "minecraft:planks", nill, "minecraft:planks", "minecraft:planks", "minecraft:wooden_slab", "minecraft:planks"}
 
-function craftItem(item)
+function craftItem(item, count)
 
 	-- Check for recipe
 	if (recipe[item] == nill) then
@@ -11,31 +18,67 @@ function craftItem(item)
 		return false
 	end
 
-	-- Create a list of used items
-	usedItems = {}
-	for i = 1, i < 9, 1 do
+	-- Create a list of items in recipe
+	local itemInRecipe = {}
+	for i = 1, 9, 1 do
 		if not (recipe[item][i] == nill) then
-			for j = 1, #usedItems, 1 do
-				if (usedItems[j] == recipe[item][i]) then
+			for j = 1, #itemInRecipe, 1 do
+				if (itemInRecipe[j] == recipe[item][i]) then
 					break
 				end
 			end
-			table.insert(usedItems, recipe[item][i])
+			table.insert(itemInRecipe, recipe[item][i])
 		end
 	end
 
-
-	-- Print list of used items
+	-- Print list of items in recipe
 	print("List of used items:")
-	for i = 1, #usedItems, 1 do
-		print(usedItems[i])
+	for i = 1, #itemInRecipe, 1 do
+		print(itemInRecipe[i])
 	end
-	print("")
 
+	-- Create list of item counts in recipe
+	local itemCountInRecipe = {}
+	for i = 1, #itemInRecipe, 1 do
+		local count = 0
+		for j = 1, 9, 1 do
+			if (itemInRecipe[i] == recipe[item][j]) then
+				count = count + 1
+			end
+		end
+		itemCountInRecipe[i] = count
+	end
 
-	-- Check for materials
+	-- Print list of item counts in recipe
+	print("List of materials:")
+	for i = 1, #itemInRecipe, 1 do
+		print(itemInRecipe[i] .. ": " .. itemCountInRecipe[i])
+	end
 
+	-- Create list of items for use
+	local itemCount = {}
+	for i = 1, #itemInRecipe, 1 do
+		itemCount[i] = getItemCount(itemInRecipe[i])
+	end
+
+	-- Print list of items for use
+	print("List of items for use:")
+	for i = 1, #itemInRecipe, 1 do
+		print(itemInRecipe[i] .. ": " .. itemCount[i])
+	end
+
+	-- Check for missing items
+	local missingItem = false
+	for i = 1, #itemInRecipe, 1 do
+		if (itemCount[i] < itemCountInRecipe[i]) then
+			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. itemInRecipe[i])
+			missingItem = true
+		end
+	end
+	if (missingItem) then
+		return false
+	end
 
 	-- Empty for unused item
-	
+
 end
