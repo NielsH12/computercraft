@@ -49,7 +49,7 @@ recipe["exnihilo:barrel"] = {"minecraft:planks", nill, "minecraft:planks", "mine
 
 resultCount = {}
 resultCount["minecraft:planks"] = 4
-resultCount["minecraft:wooden_slab"] = 3
+resultCount["minecraft:wooden_slab"] = 6
 resultCount["exnihilo:barrel"] = 1
 
 function craftItem(item, count, force)
@@ -76,12 +76,16 @@ function craftItem(item, count, force)
 	local itemInRecipe = {}
 	for i = 1, 9, 1 do
 		if not (recipe[item][i] == nill) then
+			local match = false
 			for j = 1, #itemInRecipe, 1 do
 				if (itemInRecipe[j] == recipe[item][i]) then
+					match = true
 					break
 				end
 			end
-			table.insert(itemInRecipe, recipe[item][i])
+			if not (match) then
+				table.insert(itemInRecipe, recipe[item][i])
+			end
 		end
 	end
 
@@ -94,12 +98,12 @@ function craftItem(item, count, force)
 				itemCount = itemCount + 1
 			end
 		end
-		itemCountInRecipe[i] = itemCount * ceil(count / resultCount[item])
+		itemCountInRecipe[i] = itemCount * math.ceil(count / resultCount[item])
 	end
 
 	print("Needed items")
 	for i = 1, #itemInRecipe, 1 do
-		print(itemInRecipe[i] .. ": " .. itemCountInRecipe[i])
+		print(i .. ": " .. itemInRecipe[i] .. ": " .. itemCountInRecipe[i])
 	end
 
 	-- Create list of items for use
