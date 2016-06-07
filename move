@@ -16,7 +16,6 @@ function forward(length, force)
 				if (turtle.getFuelLevel() == 0) then
 					fuel.refuel()
 				end
-			end
 			elseif (force) then
 				turtle.dig()
 			end
@@ -29,9 +28,9 @@ function backward(length, force)
 
 	function move(turned)
 		if (turned) then
-			return turtle.back()
-		else
 			return turtle.forward()
+		else
+			return turtle.back()
 		end
 	end
 
@@ -44,16 +43,19 @@ function backward(length, force)
 	local turned = false
 	for i = 1, length, 1 do
 		while not (move(turned)) do
-			if not (turtle.detect()) then
-				if (turtle.getFuelLevel() == 0) then
-					fuel.refuel()
+			if (turtle.getFuelLevel() == 0) then
+				fuel.refuel()
+			else
+				if not (turned) then
+					turtle.turnLeft()
+					turtle.turnLeft()
+					turned = true
 				end
-			end
-			elseif (force) then
-				turtle.turnLeft()
-				turtle.turnLeft()
-				turned = true
-				turtle.dig()
+				if not (turtle.detect()) then
+
+				elseif (force) then
+					turtle.dig()
+				end
 			end
 		end
 	end
@@ -77,7 +79,6 @@ function up(length, force)
 				if (turtle.getFuelLevel() == 0) then
 					fuel.refuel()
 				end
-			end
 			elseif (force) then
 				turtle.digUp()
 			end
@@ -99,7 +100,6 @@ function down(length, force)
 				if (turtle.getFuelLevel() == 0) then
 					fuel.refuel()
 				end
-			end
 			elseif (force) then
 				turtle.digDown()
 			end

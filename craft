@@ -85,7 +85,7 @@ function item(item, count, force)
 	end
 
 	-- Place chest
-	if not (inventory.selectItem("minecraft:chest")) then
+	if not (inventory.select("minecraft:chest")) then
 		print("No chest found in inventory!")
 		return false
 	end
@@ -122,7 +122,7 @@ function item(item, count, force)
 	for i = 1, #itemInRecipe, 1 do
 		for j = 1, 16, 1 do
 			if (inventory.getItemCount(itemInRecipe[i]) > itemCountInRecipe[i]) then
-				inventory.selectItem(itemInRecipe[i])
+				inventory.select(itemInRecipe[i])
 				turtle.dropUp(math.min(inventory.getItemCount(itemInRecipe[i]) - itemCountInRecipe[i], 64))
 			else
 				break
