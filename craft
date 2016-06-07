@@ -94,7 +94,7 @@ function craftItem(item, count, force)
 				itemCount = itemCount + 1
 			end
 		end
-		itemCountInRecipe[i] = itemCount * count
+		itemCountInRecipe[i] = itemCount * ceil(count / resultCount[item])
 	end
 
 	print("Needed items")
@@ -114,7 +114,7 @@ function craftItem(item, count, force)
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
 			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
-			if (craftItem(itemInRecipe[i], math.ceil((itemCountInRecipe[i] - itemCount[i]) / resultCount[itemInRecipe[i]]), true)) then
+			if (craftItem(itemInRecipe[i], math.ceil((itemCountInRecipe[i] - itemCount[i]) / resultCount[item]), true)) then
 				print("Fixed!")
 				fixedMissingItem = true
 			else
