@@ -101,11 +101,6 @@ function craftItem(item, count, force)
 		itemCountInRecipe[i] = itemCount * math.ceil(count / resultCount[item])
 	end
 
-	print("Needed items")
-	for i = 1, #itemInRecipe, 1 do
-		print(i .. ": " .. itemInRecipe[i] .. ": " .. itemCountInRecipe[i])
-	end
-
 	-- Create list of items for use
 	local itemCount = {}
 	for i = 1, #itemInRecipe, 1 do
@@ -113,13 +108,13 @@ function craftItem(item, count, force)
 	end
 
 	-- Check for missing items
+	print("Check for missing items!")
 	local missingItem = false
-	local FixedMissingItem = false
+	local fixedMissingItem = false
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
 			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
-			if (craftItem(itemInRecipe[i], math.ceil((itemCountInRecipe[i] - itemCount[i]) / resultCount[item]), true)) then
-				print("Fixed!")
+			if (craftItem(itemInRecipe[i], math.ceil(itemCountInRecipe[i] - itemCount[i]), true)) then
 				fixedMissingItem = true
 			else
 				print("Cant fix error!")
@@ -181,6 +176,7 @@ function craftItem(item, count, force)
 	end
 
 	-- Place items
+	print("place items")
 	for i = 1, 3, 1 do
 		for j = 1, 3, 1 do
 			if (recipe[item][(i - 1) * 3 + j] == nill) then
@@ -209,11 +205,15 @@ function craftItem(item, count, force)
 	end
 
 	-- Craft
+	print("Craft!")
 	turtle.craft()
 
 	-- Fill with unused items
 	turtle.select(1)
 	while (turtle.suckUp()) do end
 	turtle.digUp()
+
+	print("Done crafting " .. count .. " " .. item)
+
 	return true
 end
