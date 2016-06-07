@@ -97,6 +97,11 @@ function craftItem(item, count, force)
 		itemCountInRecipe[i] = itemCount * count
 	end
 
+	print("Needed items")
+	for i = 1, #itemInRecipe, 1 do
+		print(itemInRecipe[i] .. ": " .. itemCountInRecipe[i])
+	end
+
 	-- Create list of items for use
 	local itemCount = {}
 	for i = 1, #itemInRecipe, 1 do
@@ -105,16 +110,21 @@ function craftItem(item, count, force)
 
 	-- Check for missing items
 	local missingItem = false
+	local FixedMissingItem = false
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
 			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
 			if (craftItem(itemInRecipe[i], math.ceil((itemCountInRecipe[i] - itemCount[i]) / resultCount[itemInRecipe[i]]), true)) then
 				print("Fixed!")
+				fixedMissingItem = true
 			else
 				print("Cant fix error!")
 				missingItem = true
 			end
 		end
+	end
+	if (fixedMissingItem) then
+		return craftItem(item, count, force)
 	end
 	if (missingItem) then
 		return false
