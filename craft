@@ -1,38 +1,3 @@
-local function getItemCount(item)
-	local count = 0
-	for i = 1, 16, 1 do
-		d = turtle.getItemDetail(i)
-		if not (d == nill) then
-			if (d.name == item) then
-				count = count + d.count
-			end
-		end
-	end
-	return count
-end
-
-local function selectItem(item)
-	for i = 1, 16, 1 do
-		d = turtle.getItemDetail(i)
-		if not (d == nill) then
-			if (d.name == item) then
-				turtle.select(i)
-				return true
-			end
-		end
-	end
-	return false
-end
-
-local function getItem(slot)
-	d = turtle.getItemDetail(slot)
-	if (d == nill) then
-		return nill
-	else
-		return d.name
-	end
-end
-
 local recipe = {}
 recipe["minecraft:planks"] = {"minecraft:log"}
 recipe["minecraft:wooden_slab"] = {"minecraft:planks", "minecraft:planks", "minecraft:planks"}
@@ -44,7 +9,7 @@ resultCount["minecraft:planks"] = 4
 resultCount["minecraft:wooden_slab"] = 6
 resultCount["exnihilo:barrel"] = 1
 
-function craftItem(item, count, force)
+function item(item, count, force)
 
 	-- Check for recipe
 	if (recipe[item] == nill) then
@@ -96,7 +61,7 @@ function craftItem(item, count, force)
 	-- Create list of items for use
 	local itemCount = {}
 	for i = 1, #itemInRecipe, 1 do
-		itemCount[i] = getItemCount(itemInRecipe[i])
+		itemCount[i] = inventory.getItemCount(itemInRecipe[i])
 	end
 
 	-- Check for missing items
@@ -120,7 +85,7 @@ function craftItem(item, count, force)
 	end
 
 	-- Place chest
-	if not (selectItem("minecraft:chest")) then
+	if not (inventory.selectItem("minecraft:chest")) then
 		print("No chest found in inventory!")
 		return false
 	end
@@ -139,7 +104,7 @@ function craftItem(item, count, force)
 	for i = 1, 16, 1 do
 		local foundInRecipe = false
 		for j = 1, #itemInRecipe, 1 do
-			if (getItem(i) == itemInRecipe[j] or getItem(i) == nill) then
+			if (inventory.getItemInSlot(i) == itemInRecipe[j] or inventory.getItemInSlot(i) == nill) then
 				foundInRecipe = true
 				break
 			end
@@ -156,9 +121,9 @@ function craftItem(item, count, force)
 	-- Ready crafting space
 	for i = 1, #itemInRecipe, 1 do
 		for j = 1, 16, 1 do
-			if (getItemCount(itemInRecipe[i]) > itemCountInRecipe[i]) then
-				selectItem(itemInRecipe[i])
-				turtle.dropUp(math.min(getItemCount(itemInRecipe[i]) - itemCountInRecipe[i], 64))
+			if (inventory.getItemCount(itemInRecipe[i]) > itemCountInRecipe[i]) then
+				inventory.selectItem(itemInRecipe[i])
+				turtle.dropUp(math.min(inventory.getItemCount(itemInRecipe[i]) - itemCountInRecipe[i], 64))
 			else
 				break
 			end

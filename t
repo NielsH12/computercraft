@@ -1,111 +1,9 @@
-function refuel()
-	for i = 1, 16, 1 do
-		turtle.select(i)
-		if turtle.refuel() then
-			return true
-		end
-	end
-	return false
-end
-
 function getSelectedSlot()
 	return turtle.getSelectedSlot()
 end
 
 function getItemCount(s)
 	return turtle.getItemCount(s)
-end
-
-function forward(l, f, r)
-	if (l == nill) then
-		l = 1
-	end
-	if (f == nill) then
-		f = false
-	end
-	if (r == nill) then
-		r = false
-	end
-	for i = 1, l, 1 do
-		while not (turtle.forward()) do
-			if not (turtle.detect()) then
-				if (r) then
-					if not (refuel()) then
-						return false
-					end
-				else
-					return false
-				end
-			elseif (f) then
-				turtle.dig()
-			end
-		end
-	end
-	return true
-end
-
-function up(l, f, r)
-	if (l == nill) then
-		l = 1
-	end
-	if (f == nill) then
-		f = false
-	end
-	if (r == nill) then
-		r = false
-	end
-	for i = 1, l, 1 do
-		while not (turtle.up()) do
-			if not (turtle.detectUp()) then
-				if (r) then
-					if not (refuel()) then
-						return false
-					end
-				else
-					return false
-				end
-			elseif (f) then
-				turtle.digUp()
-			end
-		end
-	end
-	return true
-end
-
-function down(l, f, r)
-	if (l == nill) then
-		l = 1
-	end
-	if (f == nill) then
-		f = false
-	end
-	if (r == nill) then
-		r = false
-	end
-	for i = 1, l, 1 do
-		while not (turtle.down()) do
-			if not (turtle.detectDown()) then
-				if (r) then
-					if not (refuel()) then
-						return false
-					end
-				else
-					return false
-				end
-			elseif (f) then
-				turtle.digDown()
-			end
-		end
-	end
-	return true
-end
-
-function left()
-	turtle.turnLeft()
-end
-
-function right()
-	turtle.turnRight()
 end
 
 function dig()
@@ -247,11 +145,4 @@ function transferTo(s, c)
 	else
 		return turtle.transferTo(s, c)
 	end
-end
-
-function craft(i)
-	if (i == nill) then
-		return turtle.craft()
-	end
-	return turtle.craft(i)
 end
