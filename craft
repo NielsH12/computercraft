@@ -1,13 +1,4 @@
---[[
-Need folowing functions
-
-getItemCount(item)
-selectItem(item)
-getItem(slot)
-
-]]--
-
-function getItemCount(item)
+local function getItemCount(item)
 	local count = 0
 	for i = 1, 16, 1 do
 		d = turtle.getItemDetail(i)
@@ -20,7 +11,7 @@ function getItemCount(item)
 	return count
 end
 
-function selectItem(item)
+local function selectItem(item)
 	for i = 1, 16, 1 do
 		d = turtle.getItemDetail(i)
 		if not (d == nill) then
@@ -33,7 +24,7 @@ function selectItem(item)
 	return false
 end
 
-function getItem(slot)
+local function getItem(slot)
 	d = turtle.getItemDetail(slot)
 	if (d == nill) then
 		return nill
@@ -42,12 +33,13 @@ function getItem(slot)
 	end
 end
 
-recipe = {}
+local recipe = {}
 recipe["minecraft:planks"] = {"minecraft:log"}
 recipe["minecraft:wooden_slab"] = {"minecraft:planks", "minecraft:planks", "minecraft:planks"}
 recipe["exnihilo:barrel"] = {"minecraft:planks", nill, "minecraft:planks", "minecraft:planks", nill, "minecraft:planks", "minecraft:planks", "minecraft:wooden_slab", "minecraft:planks"}
 
-resultCount = {}
+
+local resultCount = {}
 resultCount["minecraft:planks"] = 4
 resultCount["minecraft:wooden_slab"] = 6
 resultCount["exnihilo:barrel"] = 1
@@ -108,16 +100,13 @@ function craftItem(item, count, force)
 	end
 
 	-- Check for missing items
-	print("Check for missing items!")
 	local missingItem = false
 	local fixedMissingItem = false
 	for i = 1, #itemInRecipe, 1 do
 		if (itemCount[i] < itemCountInRecipe[i]) then
-			print("Missing " .. (itemCountInRecipe[i] - itemCount[i]) .. " " .. itemInRecipe[i])
 			if (craftItem(itemInRecipe[i], math.ceil(itemCountInRecipe[i] - itemCount[i]), true)) then
 				fixedMissingItem = true
 			else
-				print("Cant fix error!")
 				missingItem = true
 			end
 		end
@@ -126,6 +115,7 @@ function craftItem(item, count, force)
 		return craftItem(item, count, force)
 	end
 	if (missingItem) then
+		print("Not enought items!")
 		return false
 	end
 
@@ -176,13 +166,10 @@ function craftItem(item, count, force)
 	end
 
 	-- Place items
-	print("place items")
-	os.sleep(1)
 	for i = 1, 3, 1 do
 		for j = 1, 3, 1 do
 			-- If slot should to be empty
 			if (recipe[item][(i - 1) * 3 + j] == nill) then
-				print("Empty slot: " .. (i - 1) * 4 + j)
 				if (turtle.getItemCount((i - 1) * 4 + j) > 0) then
 					for k = 1, 16, 1 do
 						turtle.select((i - 1) * 4 + j)
@@ -199,7 +186,6 @@ function craftItem(item, count, force)
 
 					-- If wrong item in slot
 					if not (data.name == recipe[item][(i - 1) * 3 + j]) then
-						print("Empty slot: " .. (i - 1) * 4 + j)
 						turtle.select((i - 1) * 4 + j)
 						for k = 1, 16, 1 do
 							if (turtle.getItemCount((i - 1) * 4 + j) == 0) then
@@ -217,7 +203,6 @@ function craftItem(item, count, force)
 						end
 					end
 				end
-				print("Fill slot: " .. (i - 1) * 4 + j .. " with " .. math.ceil(count / resultCount[item]) .. " " .. recipe[item][(i - 1) * 3 + j])
 				for k = (i - 1) * 4 + j + 1, 16, 1 do
 					while (turtle.getItemCount((i - 1) * 4 + j) < math.ceil(count / resultCount[item])) do
 						for l = (i - 1) * 4 + j + 1, 16, 1 do
@@ -235,10 +220,7 @@ function craftItem(item, count, force)
 			end
 		end
 	end
-	print("Done!")
-	os.sleep(1)
 	-- Craft
-	print("Craft!")
 	turtle.select(1)
 	turtle.craft()
 
@@ -246,8 +228,6 @@ function craftItem(item, count, force)
 	turtle.select(1)
 	while (turtle.suckUp()) do end
 	turtle.digUp()
-
-	print("Done crafting " .. count .. " " .. item)
 
 	return true
 end
