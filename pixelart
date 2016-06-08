@@ -1,0 +1,22 @@
+os.loadAPI("n")
+
+art = {
+
+{0,1,2},
+{2,1,3},
+{3,0,0}
+
+}
+
+function layer(index)
+
+	for i = 1, table.getn(art[index]), 1 do
+		turtle.select(art[index][i])
+		while turtle.getItemCount() == 0 do sleep(1) end
+		turtle.placeDown()
+		n.forward()
+	end
+
+end
+
+layer(1)
