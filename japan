@@ -1,6 +1,10 @@
 os.loadAPI("n")
 n.setCoordinates(0,0,0,3)
 
+function coord()
+	print(n.getCoordinates()[1] .. " " .. n.getCoordinates()[2] .. " " .. n.getCoordinates()[3])
+end
+
 function hole()
 	n.down(2,'f')
 	turtle.digDown()
@@ -20,6 +24,7 @@ function hole()
 				n.right()
 			end
 		else
+			print("Current coordinates: ")
 			n.goto(0,0,0)
 		end
 	end
