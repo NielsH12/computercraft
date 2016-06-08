@@ -170,24 +170,31 @@ end
 
 function goto(x,y,z,d)
 	if yCoord < y then
-		up(y - yCoord,'f')
+		up(math.abs(y - yCoord),'f')
 	end
 	if x < xCoord then
 		n.look("east")
-		forward(xCoord - x,'f')
+		forward(math.abs(xCoord - x),'f')
 	end
 	if x > xCoord then
 		n.look("west")
-		forward(x - xCoord,'f')
+		forward(math.abs(x - xCoord),'f')
 	end
 	if z < zCoord then
 		look("north")
-		forward(zCoord - z,'f')
+		forward(math.abs(zCoord - z),'f')
 	end
 	if zCoord < z then
 		n.look("south")
-		forward(z - zCoord,'f')		
+		forward(math.abs(z - zCoord),'f')
+	end
 	if y < yCoord then
-		down(yCoord - y,'f')
+		down(math.abs(yCoord - y),'f')
 	end
 end
+
+local directions = {"south", "west", "north", "east"}
+local direction = 3
+
+local xDiff = {0, -1, 0, 1}
+local zDiff = {1, 0, -1, 0}

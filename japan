@@ -40,4 +40,6 @@ function digRow()
 	turtle.digDown()
 end
 
-hole()
+--hole()
+n.forward(5)
+coord()
