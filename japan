@@ -1,8 +1,9 @@
 os.loadAPI("n")
 n.setCoordinates(0,0,0,3)
+directions = {"south", "west", "north", "east"}
 
 function coord()
-	print(n.getCoordinates()[1] .. " " .. n.getCoordinates()[2] .. " " .. n.getCoordinates()[3])
+	print(n.getCoordinates()[1] .. " " .. n.getCoordinates()[2] .. " " .. n.getCoordinates()[3] .. " " .. directions[n.getCoordinates()[4]])
 end
 
 function hole()
@@ -24,8 +25,10 @@ function hole()
 				n.right()
 			end
 		else
-			print("Current coordinates: ")
-			n.goto(0,0,0)
+			print("I think I'm at: ")
+			coord()
+			sleep(5)
+			n.goto(0,0,0,"north")
 		end
 	end
 end
@@ -40,6 +43,5 @@ function digRow()
 	turtle.digDown()
 end
 
---hole()
-n.forward(5)
-coord()
+hole()
+

@@ -191,6 +191,7 @@ function goto(x,y,z,d)
 	if y < yCoord then
 		down(math.abs(yCoord - y),'f')
 	end
+	look(d)
 end
 
 local directions = {"south", "west", "north", "east"}
