@@ -4,8 +4,8 @@ dofile "art"
 
 print("Expected items: ")
 
-for i = 1,16,1 do
-	print(i .. ": " .. description[i])
+for i = 1,8,2 do
+	print(i .. ": " .. description[i] .. ", " .. i+1 .. ": " .. description[i+1])
 end
 
 print("Press any key to continue")
