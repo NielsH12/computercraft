@@ -36,7 +36,7 @@ end
 
 function picture()
 
-	for i = 1, table.getn(art[1]), 1 do
+	for i = table.getn(art[1]), 1, -1 do
 		
 		if i % 2 == 1 then
 			layer(i)
