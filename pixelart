@@ -11,9 +11,11 @@ art = {
 function layer(index)
 
 	for i = 1, table.getn(art[index]), 1 do
-		turtle.select(art[index][i])
-		while turtle.getItemCount() == 0 do sleep(1) end
-		turtle.placeDown()
+		if art[index][i] ~= 0 then
+			turtle.select(art[index][i])
+			while turtle.getItemCount() == 0 do sleep(1) end
+			turtle.placeDown()
+		end
 		n.forward()
 	end
 
