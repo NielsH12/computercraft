@@ -169,10 +169,25 @@ function look(orientation)
 end
 
 function goto(x,y,z,d)
-	while yCoord < y do n.up(1,'f') end
-	while x < xCoord do look("east") forward(1,'f') end
-	while x > xCoord do look("west") forward(1,'f') end
-	while z < zCoord do look("south") forward(1,'f') end
-	while zCoord < z do look("north") forward(1,'f') end	
-	while y < yCoord do n.down(1,'f') end
+	if yCoord < y then
+		up(y - yCoord,'f')
+	end
+	if x < xCoord then
+		n.look("east")
+		forward(xCoord - x,'f')
+	end
+	if x > xCoord then
+		n.look("west")
+		forward(x - xCoord,'f')
+	end
+	if z < zCoord then
+		look("north")
+		forward(zCoord - z,'f')
+	end
+	if zCoord < z then
+		n.look("south")
+		forward(z - zCoord,'f')		
+	if y < yCoord then
+		down(yCoord - y,'f')
+	end
 end
