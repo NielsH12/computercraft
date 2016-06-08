@@ -1,0 +1,47 @@
+os.loadAPI("n")
+n.setCoordinates(0,0,0,3)
+directions = {"south", "west", "north", "east"}
+
+function coord()
+	print(n.getCoordinates()[1] .. " " .. n.getCoordinates()[2] .. " " .. n.getCoordinates()[3] .. " " .. directions[n.getCoordinates()[4]])
+end
+
+function hole()
+	n.down(2,'f')
+	turtle.digDown()
+	n.left()
+	n.forward(5,'f')
+	n.right()
+	for i = 1,11,1 do
+		digRow()
+		if i ~= 11 then
+			if i % 2 == 0 then
+				n.left()
+				n.forward(1,'f')
+				n.left()
+			else
+				n.right()
+				n.forward(1,'f')
+				n.right()
+			end
+		else
+			print("I think I'm at: ")
+			coord()
+			sleep(5)
+			n.goto(0,0,0,"north")
+		end
+	end
+end
+
+function digRow()
+	for i = 1,10,1 do
+		turtle.digUp()
+		turtle.digDown()
+		n.forward(1,'f')
+	end
+	turtle.digUp()
+	turtle.digDown()
+end
+coord()
+hole()
+
