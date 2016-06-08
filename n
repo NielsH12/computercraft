@@ -36,7 +36,7 @@ function forward(length, mode)
 	if length == nill then length = 1 end
 	if mode == nill then mode = 'w' end
 	
-	if turtle.getFuelLevel < length then
+	if turtle.getFuelLevel() < length then
 		if refuel then refuel() else nofuel() end
 	end
 	
@@ -53,7 +53,7 @@ function back(length, mode)
 	if length == nill then length = 1 end
 	if mode == nill then mode = 'w' end
 	
-	if turtle.getFuelLevel < length then
+	if turtle.getFuelLevel() < length then
 		if refuel then refuel() else nofuel() end
 	end
 	
@@ -74,7 +74,7 @@ function up(length, mode)
 	if length == nill then length = 1 end
 	if mode == nill then mode = 'w' end
 	
-	if turtle.getFuelLevel < length then
+	if turtle.getFuelLevel() < length then
 		if refuel then refuel() else nofuel() end
 	end
 	

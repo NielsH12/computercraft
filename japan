@@ -1,7 +1,7 @@
 os.loadAPI("n")
 
 function hole()
-	down(2,'f')
+	n.down(2,'f')
 	turtle.digDown()
 	n.left()
 	n.forward(5,'f')
@@ -29,3 +29,5 @@ function digRow()
 	turtle.digUp()
 	turtle.digDown()
 end
+
+hole()
