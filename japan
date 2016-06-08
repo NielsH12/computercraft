@@ -42,6 +42,6 @@ function digRow()
 	turtle.digUp()
 	turtle.digDown()
 end
-
+coord()
 hole()
 

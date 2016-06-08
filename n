@@ -173,11 +173,11 @@ function goto(x,y,z,d)
 		up(math.abs(y - yCoord),'f')
 	end
 	if x < xCoord then
-		n.look("east")
+		n.look("west")
 		forward(math.abs(xCoord - x),'f')
 	end
 	if x > xCoord then
-		n.look("west")
+		n.look("east")
 		forward(math.abs(x - xCoord),'f')
 	end
 	if z < zCoord then
