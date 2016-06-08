@@ -5,8 +5,11 @@ dofile "art"
 print("Expected items: ")
 
 for i = 1,16,1 do
-	print(i .. ": " description[i])
+	print(i .. ": " .. description[i])
 end
+
+print("Press any key to continue")
+os.pullEvent( "key" )
 
 function layer(index)
 
