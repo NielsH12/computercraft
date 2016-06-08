@@ -10,3 +10,6 @@ end
 if not (os.loadAPI("inventory")) then
 	print("Can't load 'inventory' API!")
 end
+if not (os.loadAPI("net")) then
+	print("Can't load 'net' API!")
+end

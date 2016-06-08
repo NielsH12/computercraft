@@ -1,0 +1,59 @@
+local side = {"left", "right", "front", "back", "bottom", "top"}
+
+function open()
+	local open = false
+	for i = 1, #side, 1 do
+		rednet.open(side[i])
+		if (rednet.isOpen(side[i])) then
+			open = true
+		end
+	end
+	return open
+end
+
+function close()
+	for i = 1, #side, 1 do
+		rednet.close(side[i])
+	end
+	return true
+end
+
+function getServerID(protocol)
+
+	while (true) do
+		rednet.broadcast("getServerID", protocol)
+		local id, mes = rednet.receive(protocol, 5)
+		if (mes == "ack") then
+			return id
+		end
+	end
+
+end
+
+function getTask(serverID, protocol)
+
+	local x, y, z = gps.locate()
+
+	while (true) do
+		rednet.send(serverID, "getTask " .. x .. " " .. y .. " " .. z, protocol)
+		local id, mes = rednet.receive(protocol, 5)
+		if (id == serverID) then
+			return loadstring(mes)
+		end
+	end
+
+end
+
+function requestFuel(serverID, protocol)
+
+	local x, y, z = gps.locate()
+
+	while (true) do
+		rednet.send(serverID, "requestFuel " .. x .. " " .. y .. " " .. z, protocol)
+		local id, mes = rednet.receive(protocol, 5)
+		if (id == serverID) then
+			return mes
+		end
+	end
+
+end
