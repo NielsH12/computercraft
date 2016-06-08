@@ -1,0 +1,30 @@
+os.loadAPI("n")
+
+function hole()
+	down(2,f)
+	turtle.digDown()
+	n.left()
+	n.forward(5,f)
+	n.right()
+	for i = 1,11,1 do
+		digRow()
+		if i % 2 == 0 then
+			left()
+			forward(1,f)
+			left()
+		else
+			right()
+			forward(1,f)
+			right()
+		end
+end
+
+function digRow()
+	for i = 1,10,1 do
+		turtle.digUp()
+		turtle.digDown()
+		forward(1,f)
+	end
+	turtle.digUp()
+	turtle.digDown()
+end
