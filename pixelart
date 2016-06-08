@@ -11,7 +11,7 @@ art = {
 function layer(index)
 
 	for i = 1, table.getn(art[index]), 1 do
-		if art[index][i] ~= 0 then
+		if art[index][i] > 1 then
 			turtle.select(art[index][i])
 			while turtle.getItemCount() == 0 do sleep(1) end
 			turtle.placeDown()
@@ -24,7 +24,7 @@ end
 function layer1(index)
 
 		for i = table.getn(art[index]), 1, -1 do
-		if art[index][i] ~= 0 then
+		if art[index][i] > 1 then
 			turtle.select(art[index][i])
 			while turtle.getItemCount() == 0 do sleep(1) end
 			turtle.placeDown()
