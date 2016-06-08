@@ -1,0 +1,8 @@
+description = {"red" , "blue", "green", "wood", "anything really", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", }
+
+pixelImage = {
+{1,4,3,6},
+{0,0,2,3},
+{1,5,7,6},
+{1,2,3,4}
+}
