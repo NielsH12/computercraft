@@ -137,7 +137,8 @@ function refuel()
 	end
 end
 
-local function nofuel() -- Appropriate action when out of fuel, status maybe?
+function nofuel() -- Appropriate action when out of fuel, status maybe?
+	print("Hello")
 	slot = turtle.getSelectedSlot()
 	for i = 1,16,1 do
 		if turtle.getItemCount(1) == 0 then
