@@ -9,36 +9,40 @@ end
 function window()
 	n.forward(1,'f')
 	for i = 1,6,1 do
-		if i ~=1 then turtle.dig() end
+		if i ~=1 then
+			if i ~= 6 then turtle.dig() end
+		end
 		n.down(1,'f')
 	end
-	turtle.dig()
-	
+
 	n.left()
 	n.forward(1,'f')
 	n.right()
 	
 	for i = 1,6,1 do
-		turtle.dig()
 		n.up(1,'f')
-		if i ~=6 then turtle.dig() end	
+		if i ~=1 then
+			if i ~= 6 then turtle.dig() end
+		end
 	end
-	turtle.dig()
 	
 	n.left()
 	n.forward(1,'f')
 	n.right()
 	
 	for i = 1,6,1 do
-		if i ~=1 then turtle.dig() end
+		if i ~=1 then
+			if i ~= 6 then turtle.dig() end
+		end
 		n.down(1,'f')
 	end
-	turtle.dig()
+	
 	n.back()
 	n.up(6)
 	n.right()
 	n.forward(2)
 	n.left()
+	
 end
 
 	window()
