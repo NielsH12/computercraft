@@ -149,6 +149,19 @@ function getDirection()
 	return direction
 end
 
+function face(targetDirection)
+	if ((direction == "east" and targetDirection == "north") or
+		(direction == "north" and targetDirection == "west") or
+		(direction == "west" and targetDirection == "south") or
+		(direction == "south" and targetDirection == "east")) then
+		move.left()
+	else
+		while not (direction == targetDirection) do
+			move.right()
+		end
+	end
+end
+
 function to(x, y, z)
 	local x1, y1, z1 = gps.locate()
 	rel(x - x1, y - y1, z - z1)
