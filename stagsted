@@ -1,0 +1,41 @@
+local protocol = "slave"
+local serverID = nill
+
+-- Main function
+function main()
+  serverID = net.getServerID(protocol)
+  while true do
+    print("Atempting to get task!")
+    local task = net.getTask(serverID, protocol)
+    if (task) then
+      endTask(serverID, protocol, task())
+    end
+  end
+end
+
+-- Update API
+function waitForUpdate()
+  while (true) do
+    id, mes = rednet.receive(protocol)
+    if (id == serverID and mes == "update") then
+      print("updating")
+      updateAPIs()
+    end
+  end
+end
+
+-- Copy files from drive to device
+local files = fs.list("disk")
+for i = 1, #files, 1 do
+	if not (fs.exists(files[i])) then
+		fs.copy("disk/" .. files[i], files[i])
+	end
+end
+
+-- Load all APIs
+shell.run("loadAPIs")
+
+-- Run main function while waiting on update
+net.open("left")
+parallel.waitForAny(main, waitForUpdate)
+net.close("left")
