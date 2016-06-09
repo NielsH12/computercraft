@@ -42,7 +42,9 @@ function backward(length, force)
 	if (force == nill) then
 		force = false
 	end
+
 	local turned = false
+
 	for i = 1, length, 1 do
 		while not (move(turned)) do
 			if (turtle.getFuelLevel() == 0) then
@@ -127,22 +129,24 @@ function right()
 end
 
 function getDirection()
+	print("Get direction")
 	if (direction == "unknown") then
 		for i = 1, 4, 1 do
 			local x1, y1, z1 = gps.locate()
-			if not (forward(1)) then
-				right()
-			else
+			if (forward()) then
 				local x2, y2, z2 = gps.locate()
 
 				if not (x1 == x2) then
 					if (x1 < x2) then direction = "east"
 					else direction = "west" end
 				elseif not (z1 == z2) then
-					if (z1 < z2) then direction = "north"
-					else direction = "south" end
+					if (z1 < z2) then direction = "south"
+					else direction = "north" end
 				end
-				backward(1)
+				backward()
+				return direction
+			else
+				right()
 			end
 		end
 	end
@@ -154,10 +158,10 @@ function face(targetDirection)
 		(direction == "north" and targetDirection == "west") or
 		(direction == "west" and targetDirection == "south") or
 		(direction == "south" and targetDirection == "east")) then
-		move.left()
+		left()
 	else
 		while not (direction == targetDirection) do
-			move.right()
+			right()
 		end
 	end
 end
@@ -173,16 +177,16 @@ function rel(x, y, z)
 		getDirection()
 	end
 
-	if (x > 0) then
-		face("east")
-	elseif (x < 0) then
+	if (x < 0) then
 		face("west")
+	elseif (x > 0) then
+		face("east")
 	end
 	forward(math.abs(x))
-	if (z > 0) then
-		face("south")
-	elseif (z < 0) then
+	if (z < 0) then
 		face("north")
+	elseif (z > 0) then
+		face("south")
 	end
 	forward(math.abs(z))
 	if (y > 0) then
