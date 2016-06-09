@@ -50,7 +50,7 @@ if (fs.exists("disk/")) then
 	shell.run("loadAPIs")
 
 	-- Run main function while waiting on update
-	net.open("left")
+	rednet.open("left")
 	parallel.waitForAny(main, waitForUpdate)
-	net.close("left")
+	rednet.close("left")
 end

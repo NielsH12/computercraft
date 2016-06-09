@@ -1,11 +1,3 @@
-function open(side)
-	rednet.open(side)
-end
-
-function close(side)
-	rednet.close(side)
-end
-
 function getServerID(protocol)
 
 	while (true) do
