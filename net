@@ -1,21 +1,9 @@
-local side = {"left", "right", "front", "back", "bottom", "top"}
-
-function open()
-	local open = false
-	for i = 1, #side, 1 do
-		rednet.open(side[i])
-		if (rednet.isOpen(side[i])) then
-			open = true
-		end
-	end
-	return open
+function open(side)
+	rednet.open(side)
 end
 
-function close()
-	for i = 1, #side, 1 do
-		rednet.close(side[i])
-	end
-	return true
+function close(side)
+	rednet.close(side)
 end
 
 function getServerID(protocol)
