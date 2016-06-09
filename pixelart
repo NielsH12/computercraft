@@ -48,9 +48,9 @@ function picture()
 	for i = height, 1, -1 do
 		
 		if i % 2 == 1 then
-			layer(i)
-		else
 			layer1(i)
+		else
+			layer(i)
 		end
 		n.up()
 		n.right(2)
