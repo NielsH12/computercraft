@@ -38,7 +38,11 @@ if (fs.exists("disk/")) then
 
 	-- If loadAPIs not exists then download repo
 	if not (fs.exists("disk/loadAPIs")) then
-		shell.run("git NielsH12 computercraft .")
+		if (fs.exists("loadAPIs")) then
+			shell.run("loadAPIs")
+		else
+			shell.run("git NielsH12 computercraft .")
+		end
 	end
 
 	-- Load all APIs
