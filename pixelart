@@ -11,8 +11,8 @@ end
 print("Press any key to continue")
 os.pullEvent( "key" )
 
-length = table.getn(pixelImage)
-height = table.getn(pixelImage[1])
+length = table.getn(pixelImage[1])
+height = table.getn(pixelImage)
 
 print(length)
 print(height)
@@ -48,9 +48,9 @@ function picture()
 	for i = height, 1, -1 do
 		
 		if i % 2 == 1 then
-			layer1(i)
-		else
 			layer(i)
+		else
+			layer1(i)
 		end
 		n.up()
 		n.right(2)
