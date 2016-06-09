@@ -1,4 +1,10 @@
+tArgs = { ... }
 os.loadAPI("n")
+if #tArgs == 0 then
+	number = 0
+else
+	number = tonumber("tArgs[1]")
+end
 
 function window()
 	n.forward(1,'f')
@@ -34,4 +40,10 @@ function window()
 	n.left()
 end
 
-window()
+	window()
+for i = 1,number,1 do
+	n.left()
+	n.forward(6)
+	n.right()
+	window()
+end
