@@ -23,7 +23,7 @@ function layer(index)
 		if pixelImage[index][i] ~= 0 then
 			turtle.select(pixelImage[index][i])
 			while turtle.getItemCount() <= 1 do sleep(1) end
-			turtle.placeDown()
+			while not turtle.placeDown() do end
 		end
 		n.forward()
 	end
@@ -36,7 +36,7 @@ function layer1(index)
 		if pixelImage[index][i] ~= 0 then
 			turtle.select(pixelImage[index][i])
 			while turtle.getItemCount() <= 1 do sleep(1) end
-			turtle.placeDown()
+			while not turtle.placeDown() do end
 		end
 		n.forward()
 	end
