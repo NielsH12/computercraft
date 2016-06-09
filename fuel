@@ -9,12 +9,12 @@ function refuel(item, count)
 				return true
 			end
 		end
-		return false
+		net.getFuel()
 	else
 		if (inventory.select(item)) then
 			return turtle.refuel(count)
 		else
-			return false
+			net.getFuel()
 		end
 	end
 end

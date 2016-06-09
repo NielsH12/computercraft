@@ -13,3 +13,8 @@ end
 if not (os.loadAPI("net")) then
 	print("Can't load 'net' API!")
 end
+
+function updateAPIs()
+	shell.run("clone")
+	os.reboot()
+end

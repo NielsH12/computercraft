@@ -172,7 +172,7 @@ function to(x, y, z)
 end
 
 function rel(x, y, z)
-
+	print("Move rel: " .. x .. ", " .. y .. ", " .. z)
 	if (direction == "unknown") then
 		getDirection()
 	end
