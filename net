@@ -1,7 +1,7 @@
 function getServerID(protocol)
 
 	while (true) do
-		rednet.broadcast("get server ID", protocol)
+		rednet.broadcast("get serverID", protocol)
 		local id, mes = rednet.receive(protocol, 5)
 		if (mes == "ack") then
 			return id
