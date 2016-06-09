@@ -11,9 +11,15 @@ end
 print("Press any key to continue")
 os.pullEvent( "key" )
 
+length = table.getn(pixelImage)
+height = table.getn(pixelImage[1])
+
+print(length)
+print(height)
+
 function layer(index)
 
-	for i = 1, table.getn(pixelImage[index]), 1 do
+	for i = 1, table.getn(pixelImage), 1 do
 		if pixelImage[index][i] ~= 0 then
 			turtle.select(pixelImage[index][i])
 			while turtle.getItemCount() <= 1 do sleep(1) end
@@ -26,7 +32,7 @@ end
 
 function layer1(index)
 
-		for i = table.getn(pixelImage[index]), 1, -1 do
+		for i = table.getn(pixelImage), 1, -1 do
 		if pixelImage[index][i] ~= 0 then
 			turtle.select(pixelImage[index][i])
 			while turtle.getItemCount() <= 1 do sleep(1) end
