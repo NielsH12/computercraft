@@ -9,7 +9,13 @@ local function main()
 		print("Atempting to get task!")
 		local task = net.getTask(serverID, protocol)
 		if (task) then
-			endTask(serverID, protocol, task())
+			while (true) do
+				net.endTask(serverID, protocol, task())
+				id, mes = rednet.receive(protocol)
+				if (id == serverID and mes == "ack") then
+					break
+				end
+			end
 		end
 	end
 end
@@ -19,8 +25,9 @@ local function waitForUpdate()
 	while (true) do
 		id, mes = rednet.receive(protocol)
 		if (id == serverID and mes == "update") then
-			print("updating")
+			print("Updating...")
 			updateAPIs()
+			Print("Done!")
 		end
 	end
 end

@@ -90,3 +90,5 @@ function main()
 		rednet.close(modemSide)
 	end
 end
+
+main()
