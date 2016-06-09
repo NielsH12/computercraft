@@ -1,0 +1,34 @@
+os.loadAPI("n")
+
+function window()
+	n.forward(1,'f')
+	for i = 1,6,1 do
+		turtle.dig()
+		n.down(1,'f')
+	end
+	
+	n.left()
+	n.forward(1,'f')
+	n.right()
+	
+	for i = 1,6,1 do
+		turtle.dig()
+		n.up(1,'f')
+	end
+	
+	n.left()
+	n.forward()
+	n.right()
+	
+	for i = 1,6,1 do
+		turtle.dig()
+		n.down(1,'f')
+	end
+	n.back()
+	n.up(6)
+	n.right()
+	n.forward(3)
+	n.left()
+end
+
+window()
