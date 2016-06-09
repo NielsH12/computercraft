@@ -9,9 +9,7 @@ end
 function window()
 	n.forward(1,'f')
 	for i = 1,6,1 do
-		if i ~=1 then
-			turtle.dig()
-		end
+		if i ~= i then turtle.dig() end
 		n.down(1,'f')
 	end
 
