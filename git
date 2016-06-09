@@ -17,49 +17,8 @@ local title = "Github Repo Downloader"
 local fileList = {dirs={},files={}}
 local x , y = term.getSize()
 
--- GUI
-function printTitle()
-    local line = 2
-    term.setCursorPos(1,line)
-    for i = 2, x, 1 do write("-") end
-    term.setCursorPos((x-title:len())/2,line+1)
-    print(title)
-    for i = 2, x, 1 do write("-") end
-end
-
-function writeCenter( str )
-    term.clear()
-    printTitle()
-    term.setCursorPos((x-str:len())/2-1,y/2-1)
-    for i = -1, str:len(), 1 do write("-") end
-    term.setCursorPos((x-str:len())/2-1,y/2)
-    print("|"..str.."|")
-    term.setCursorPos((x-str:len())/2-1,y/2+1)
-    for i = -1, str:len(), 1 do write("-") end
-end
-
-function printUsage()
-    local str = "Press space key to continue"
-    term.clear()
-    printTitle()
-    term.setCursorPos(1,y/2-4)
-    print(usage)
-    term.setCursorPos((x-str:len())/2,y/2+7)
-    print(str)
-    while true do
-        local event, param1 = os.pullEvent("key")
-        if param1 == 57 then
-            sleep(0)
-            break
-        end
-    end
-    term.clear()
-    term.setCursorPos(1,1)
-end
-
 -- Download File
 function downloadFile( path, url, name )
-    writeCenter("Downloading File: "..name)
     dirPath = path:gmatch('([%w%_%.% %-%+%,%;%:%*%#%=%/]+)/'..name..'$')()
     if dirPath ~= nil and not fs.isDir(dirPath) then fs.makeDir(dirPath) end
     local content = http.get(url)
@@ -80,10 +39,7 @@ function getGithubContents( path )
             for str in response:gmatch('"name":"([^\"]+)"') do table.insert(pName, str) end
         end
     else
-        writeCenter( "Error: Can't resolve URL" )
---      sleep(2)
-        term.clear()
-        term.setCursorPos(1,1)
+        print( "Error: Can't resolve URL" )
         error()
     end
     return pType, pPath, pName
@@ -118,7 +74,6 @@ function downloadManager( path )
             local path = gRepo .. "/" .. fPath[i]
             if gPath ~= "" then path = gPath.."/"..gRepo.."/"..fPath[i] end
             if not fileList.dirs[path] then
-                writeCenter("Listing directory: "..fName[i])
                 fileList.dirs[path] = {"https://raw.github.com/"..gUser.."/"..gRepo.."/"..gBranch.."/"..fPath[i],fName[i]}
                 downloadManager( fPath[i] )
             end
@@ -128,15 +83,10 @@ end
 
 -- Main Function
 function main( path )
-    writeCenter("Connecting to Github")
     downloadManager(path)
     for i, data in pairs(fileList.files) do
         downloadFile( i, data[1], data[2] )
     end
-    writeCenter("Download completed")
---  sleep(2,5)
-    term.clear()
-    term.setCursorPos(1,1)
 end
 
 -- Parse User Input
@@ -152,12 +102,7 @@ function parseInput( user, repo , dldir, path, branch )
     end
 end
 
-if not http then
-    writeCenter("You need to enable the HTTP API!")
---  sleep(3)
-    term.clear()
-    term.setCursorPos(1,1)
-else
+if http then
     for i=1, 5, 1 do
         if tArgs[i] == "." then tArgs[i] = nil end
     end
