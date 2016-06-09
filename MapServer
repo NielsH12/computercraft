@@ -1,0 +1,74 @@
+local protocol = "slave"
+
+local args = {...}
+
+local slaveStatus = {}
+
+function getTask(coord)
+	return "print(1)"
+end
+
+function main()
+
+	if (args.length < 6) then
+		print("program <x1> <y1> <z1> <x2> <y2> <z2>")
+	else
+
+		-- Setup boundary box
+		local x1 = min(args[1], args[4])
+		local y1 = min(args[2], args[5])
+		local z1 = min(args[3], args[6])
+		local x2 = max(args[1], args[4])
+		local y2 = max(args[2], args[5])
+		local z2 = max(args[3], args[6])
+		local map = {}
+		for x = x1, x2, 1 do
+			map[x] = {}
+			for y = y1, y2, 1 do
+				map[x][y] = {}
+				for z = z1, z2, 1 do
+					map[x][y][z] = "unknown";
+				end
+			end
+		end
+
+		-- Open network device
+		rednet.open("back")
+
+		while (true) do
+
+			-- Receive message from slave
+			local id, mes = rednet.receive(protocol)
+
+			-- Get server ID
+			if (mes == "get server ID") then
+				rednet.send(id, "ack", protocol)
+				slaveStatus[id] = "Idle!"
+
+			-- Get task
+			elseif (mes == "get task") then
+				local coord = {}
+				local i = 1
+				for str in string.gmatch(mes, "%S+")
+					coord[i] = str
+					i = i + 1
+				end
+				rednet.send(id, getTask(coord), protocol)
+				slaveStatus[id] = "Working!"
+
+			-- End task
+			elseif (mes == end task) then
+				rednet.send(id, "ack", protocol)
+				slaveStatus[id] = "Dry!"
+			end
+
+			for i in slaveStatus do
+				print(i)
+			end
+
+		end
+
+		-- Close network device
+		rednet.close("back")
+	end
+end
