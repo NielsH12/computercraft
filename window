@@ -3,7 +3,7 @@ os.loadAPI("n")
 if #tArgs == 0 then
 	number = 0
 else
-	number = tonumber("tArgs[1]")
+	number = tonumber(tArgs[1])
 end
 
 function window()
@@ -19,8 +19,9 @@ function window()
 	n.right()
 	
 	for i = 1,6,1 do
-		if i ~=6 then turtle.dig() end
+		turtle.dig()
 		n.up(1,'f')
+		if i ~=6 then turtle.dig() end	
 	end
 	turtle.dig()
 	
