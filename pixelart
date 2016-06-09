@@ -19,7 +19,7 @@ print(height)
 
 function layer(index)
 
-	for i = 1, table.getn(pixelImage), 1 do
+	for i = 1, length, 1 do
 		if pixelImage[index][i] ~= 0 then
 			turtle.select(pixelImage[index][i])
 			while turtle.getItemCount() <= 1 do sleep(1) end
@@ -32,7 +32,7 @@ end
 
 function layer1(index)
 
-		for i = table.getn(pixelImage), 1, -1 do
+		for i = length, 1, -1 do
 		if pixelImage[index][i] ~= 0 then
 			turtle.select(pixelImage[index][i])
 			while turtle.getItemCount() <= 1 do sleep(1) end
@@ -45,7 +45,7 @@ end
 
 function picture()
 
-	for i = table.getn(pixelImage[1]), 1, -1 do
+	for i = height, 1, -1 do
 		
 		if i % 2 == 1 then
 			layer1(i)
