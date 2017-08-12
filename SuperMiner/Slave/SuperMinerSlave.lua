@@ -1,5 +1,5 @@
 print("Fetching config")
-dofile("config.lua")
+dofile("SuperMiner/Slave/config.lua")
 print("Fetching navigation")
 dofile("navigation.lua")
 print("Fetching status")
