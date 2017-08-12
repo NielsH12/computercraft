@@ -1,5 +1,8 @@
+print("Fetching config")
 dofile("config.lua")
+print("Fetching navigation")
 dofile("navigation.lua")
+print("Fetching status")
 dofile("status.lua")
 
 	mining = true -- Does the mining function control the movement of the turtle
