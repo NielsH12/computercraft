@@ -1,9 +1,9 @@
 print("Fetching config")
 dofile("SuperMiner/Slave/config.lua")
 print("Fetching navigation")
-dofile("navigation.lua")
+dofile("SuperMiner/Slave/navigation.lua")
 print("Fetching status")
-dofile("status.lua")
+dofile("SuperMiner/Slave/status.lua")
 
 	mining = true -- Does the mining function control the movement of the turtle
 	go = false -- Are we allowed to mine the next chunk
