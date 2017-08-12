@@ -40,6 +40,7 @@ function getGithubContents( path )
         end
     else
         print( "Error: Can't resolve URL" )
+		print(response)
         error()
     end
     return pType, pPath, pName
@@ -93,7 +94,7 @@ end
 function parseInput( user, repo , dldir, path, branch )
     if path == nil then path = "" end
     if branch ~= nil then gBranch = branch end
-    if repo == nil then printUsage()
+    if repo == nil then print("No repo")
     else
         gUser = user
         gRepo = repo
